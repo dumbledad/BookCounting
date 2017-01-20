@@ -1,6 +1,8 @@
+#Use Python 2.7
+
 import os, io, csv
 
-path = "C:\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles"
+path = "C:\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles\\"
 
 # Load in the Probabilities CSV file saved by the BookCounting.py file
 with io.open(path + "probabilities.csv", "r") as file:

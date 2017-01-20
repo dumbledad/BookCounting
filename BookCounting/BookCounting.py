@@ -1,6 +1,8 @@
+#Use Python 2.7
+
 import os, io
 
-path = "C:\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles"
+path = "C:\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles\\"
 
 # Concepts supplied by Miles, lower-cased and cut to one wor only
 islamWords = ["total", "complete", "religious", "jihad", "conscience", "submission", "zedegi", "fundamentalist", "modernist", "secular", "fanon", "hadith", "allah", "god"]
@@ -40,6 +42,7 @@ def squish(string, char, keepSentenceEndings = False):
         return string + " " # Keep spaces, but only one and not repeated ones
     else:
         return string # ignore everything else
+
 
 # Load each book and process it
 for book in bookDir:
