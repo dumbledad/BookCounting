@@ -1,6 +1,6 @@
 import os, io
 
-path = "C:\\dropbox\\_Temp\\Miles\\"
+path = "C:\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles"
 
 # Concepts supplied by Miles, lower-cased and cut to one wor only
 islamWords = ["total", "complete", "religious", "jihad", "conscience", "submission", "zedegi", "fundamentalist", "modernist", "secular", "fanon", "hadith", "allah", "god"]
