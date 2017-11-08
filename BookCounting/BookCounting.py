@@ -28,7 +28,7 @@ for book in bookDir:
     print(book)
     with io.open(path + book, "r", encoding="latin-1") as file:
         fileTextRaw = file.read() # Open up the book and read in its entire contents
-    words = fileText.split() # Split into words
+    words = fileTextRaw.split() # Split into words
     for word in words:
         if not word in wordCounts:
             wordCounts[word] = {}

@@ -1,5 +1,3 @@
-# Using Python 3.6
-
 import os, io
 from functools import reduce
 
