@@ -1,8 +1,8 @@
-#Use Python 2.7
+# Using Python 3.6
 
 import os, io, csv
 
-path = "C:\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles\\"
+path = "C:\\Users\\timregan\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles2\\"
 
 # Load in the Probabilities CSV file saved by the BookCounting.py file
 with io.open(path + "probabilities.csv", "r") as file:
@@ -36,9 +36,9 @@ with io.open(path + "distances.csv", "w") as outputFile:
     for fromBook in bookNames:
         newLine = fromBook
         for toBook in bookNames:
-            newLine = newLine + u"," + unicode(distances[fromBook][toBook])
+            newLine = newLine + u"," + str(distances[fromBook][toBook])
         outputLines.append(newLine)
     mergedOutputLines = u"\n".join(outputLines)
     outputFile.writelines(mergedOutputLines)
 
-raw_input("Done. Press 'return' to exit")
+input("Done. Press 'return' to exit")
