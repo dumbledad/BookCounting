@@ -12,7 +12,7 @@ for subDir in subDirs:
     print(subDir)
 
     # Load in the Probabilities CSV file saved by the BookCounting.py file
-    with io.open(path + "probabilities.csv", "r") as file:
+    with io.open(path + subDir + "\\probabilities.csv", "r") as file:
         lines = file.readlines()
     headers = lines[0].split(",")
     probabilities = {} # The data structure to store the probabilities read in from the CSV file
@@ -37,7 +37,7 @@ for subDir in subDirs:
             distances[fromBook][toBook] = distance
 
     # Store the distances in a CSV file
-    with io.open(path + "distances.csv", "w") as outputFile:
+    with io.open(path + subDir + "\\distances.csv", "w") as outputFile:
         outputLine = u"," + u",".join(probabilities)
         outputLines = [ outputLine ]
         for fromBook in bookNames:
