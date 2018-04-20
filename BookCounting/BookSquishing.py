@@ -1,7 +1,7 @@
 import os, io, re
 from functools import reduce
 
-path = "E:\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles2\\Texts\\"
+path = "C:\\Users\\timregan\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles2\\Texts\\"
 
 # Generic stop words and specific words to ignore. N.B. we cannot include "labour" since we need to keep "new labour"
 stopWords = ["a", "about", "after", "all", "also", "an", "and", "any", "around ", "as", "at", "back", "be", "be", "because", "blair", "but", "by", "can", "come", "conservative", "could", "course", "day", "do", "do", "even", "ever", "first", "first", "for", "from", "get", "get", "give", "go", "good", "got", "great", "have", "he", "her", "him", "his", "how", "however", "i", "if", "important", "in", "into", "it", "its", "just", "just", "know", "labour", "like", "look", "major", "make", "make", "may", "me", "means", "measures", "might", "most", "my", "new", "no", "not", "now", "of", "on", "one", "only", "or", "other", "our", "out", "over", "people", "plan", "rather", "regard", "say", "say", "see", "she", "so", "some", "take", "than", "that", "the", "their", "them", "then", "there", "these", "they", "think", "this", "thought", "time", "to", "took", "two", "up", "us", "use", "want", "way", "we", "well", "what", "when", "which", "who", "will", "with", "words", "work", "would", "year", "you", "your"] 
@@ -42,7 +42,7 @@ for subDir in subDirs:
 		print(book)
 		#Only squish the book if it is not done already
 		if not os.path.exists(path + subDir + "\\Squished\\" + book): 
-			with open(path + subDir + "\\" + book, "r", encoding="iso8859-1") as file:
+			with open(path + subDir + "\\" + book, "r", encoding="latin-1") as file:
 				fileTextRaw = file.read() # Open up the book and read in its entire contents
 			fileText = str.lower(reduce(squish, fileTextRaw)) # Clean it up using the squish function above
 			for conflation in conflate:
