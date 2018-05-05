@@ -1,9 +1,8 @@
 # Using Python 3.6
 
 import os, io, math, scipy.spatial
-from BookSquishing import squish, squishInDirs
+from BookSquishing import squishInDirs
 
-dropBoxRootPath = 'C:\\Users\\timregan\\Dropbox\\Projects\\Visualization\\Projectwork\\Miles3\\'
 
 def totalCount(path, filenames):
     totalCounts = {}
@@ -54,33 +53,48 @@ def tfidf(wordCounts, totalCounts, filenames):
     return tfidfs
 
 
-def similarity(tfidfs, book1, book2):
+def cosineDistance(tfidfs, book1, book2):
     # Thanks to https://stats.stackexchange.com/a/47934/9997
     book1Vector = [tfidfs[word][book1] for word in list(tfidfs)]
     book2Vector = [tfidfs[word][book2] for word in list(tfidfs)]
     distance = scipy.spatial.distance.cosine(book1Vector, book2Vector)
-    return 1 - distance
+    return distance
 
 
-# Read the filenames of the books so that we can ingest them
-filenames = [fileName for fileName in os.listdir(dropBoxRootPath + 'Texts\\Squished') if fileName.lower().endswith('txt')]
+def euclidianDistance(tfidfs, book1, book2):
+    book1Vector = [tfidfs[word][book1] for word in list(tfidfs)]
+    book2Vector = [tfidfs[word][book2] for word in list(tfidfs)]
+    distance = scipy.spatial.distance.euclidean(book1Vector, book2Vector)
+    return distance
 
-squishInDirs(dropBoxRootPath, False)
-totalCounts = totalCount(dropBoxRootPath + 'Texts\\Squished\\', filenames)
-wordCounts = wordCount(dropBoxRootPath + 'Texts\\Squished\\', filenames)
-tfidfs = tfidf(wordCounts, totalCounts, filenames)
-header = ',' + ','.join([ book.replace(',', ' ') for book in filenames ]) + '\n'
-csvLines = [header]
-for book1 in filenames:
-    line = book1 
-    for book2 in filenames:
-        sim = similarity(tfidfs, book1, book2)
-        line = line + ',' + str(sim)
-    csvLines.append(line + '\n')
-len(csvLines)
 
-# Store the distances in a CSV file
-with io.open(dropBoxRootPath + '\\distances.csv', 'w') as outputFile:
-    outputFile.writelines(csvLines)
+def csvLine(filenames, tfidfs, distanceFunction):
+    header = ',' + ','.join([ book.replace(',', ' ').replace('.txt', '') for book in filenames ]) + '\n'
+    csvLines = [header]
+    for book1 in filenames:
+        line = book1.replace(',', ' ').replace('.txt', '')
+        for book2 in filenames:
+            dis = distanceFunction(tfidfs, book1, book2)
+            line = line + ',' + str(dis)
+        csvLines.append(line + '\n')
+    return csvLines
+
+
+def calculateAndWrite(path):
+    squishInDirs(path, False)
+
+    filenames = [fileName for fileName in os.listdir(path + 'Texts\\Squished') if fileName.lower().endswith('txt')]
+
+    totalCounts = totalCount(path + 'Texts\\Squished\\', filenames)
+    wordCounts = wordCount(path + 'Texts\\Squished\\', filenames)
+    tfidfs = tfidf(wordCounts, totalCounts, filenames)
+    cosineCsvLines = csvLine(filenames, tfidfs, cosineDistance)
+    euclideanCsvLines = csvLine(filenames, tfidfs, euclidianDistance)
+
+    # Store the distances in a CSV file
+    with io.open(path + '\\cosineDistances.csv', 'w') as outputFile:
+        outputFile.writelines(cosineCsvLines)
+    with io.open(path + '\\euclideanDistances.csv', 'w') as outputFile:
+        outputFile.writelines(euclideanCsvLines)
 
 
